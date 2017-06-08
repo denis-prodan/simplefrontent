@@ -68,7 +68,7 @@ function createArticleElement(article) {
 		articleDiv.appendChild(buttonsDiv);
 		
 		articleDiv.classList.add('article');
-		articleDiv.setAttribute('data-item', JSON.stringify(article));
+		articleDiv.dataset.item = JSON.stringify(article);
 		
 		return articleDiv;
 }
@@ -96,7 +96,7 @@ function getArticleContainer(elementItem){
 
 function deleteArticle(elementItem){
 	var articleContainer = getArticleContainer(elementItem);
-	var dataAttribute = JSON.parse(articleContainer.getAttribute('data-item'));
+	var dataAttribute = JSON.parse(articleContainer.dataset.item);
 	
 	if (confirm('Are you sure you want to delete item with text: ' + dataAttribute.Text)) {
 		makeCall(baseUrl + dataAttribute.Id, 'DELETE', reloadArticles, null);
@@ -107,7 +107,7 @@ function deleteArticle(elementItem){
 
 function editArticle(elementItem){	
 	var articleContainer = getArticleContainer(elementItem);
-	var dataAttribute = JSON.parse(articleContainer.getAttribute('data-item'));
+	var dataAttribute = JSON.parse(articleContainer.dataset.item);
 	
 	var editContainer = document.createElement('div');
 	var editElement = document.createElement('textarea');
