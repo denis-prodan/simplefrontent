@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+<head>
+<title>Articles</title>
+</head>
+<body onload="reloadArticles()">
+	<label label-for="filterInput">Filter</label>
+	<input id="filterInput" type="text" onKeyUp="reloadArticles()" />
+
+	<h1>Post new article</h1>
+	<form onsubmit="postArticle()">
+		<label label-for="newArticleAuthor">Author</label>
+		<input id="newArticleAuthor" required></input>
+		
+		<label label-for="newArticleText">New article text</label>
+		<textarea id="newArticleText" class="editor" required></textarea>
+		<input id="createNewArticle" type="submit" />
+	</form>
+	<h1>Articles</h1>
+	<div id="articlesContainer">Container</div>
+</body>
+
+<script src="code.js"></script>
+</html>

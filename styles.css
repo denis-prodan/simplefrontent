@@ -1,0 +1,33 @@
+label {display:block;}
+textarea { display:block;}
+form { margin-left: 20px}
+
+.article {
+	margin-bottom: 20px;
+	width: 400px;
+	padding-left: 15px;
+}
+
+.author {
+	font-size: 20px;
+}
+
+.articleText {
+	display: inline-block; 
+	font-style: italic;
+}
+
+.imageElement {
+	width:20px;
+	height: 20px;
+}
+
+.editor {
+	width: 400px;
+	height: 100px;
+}
+
+.inline {
+	display: inline-block;
+	margin-left: 20px;
+}
