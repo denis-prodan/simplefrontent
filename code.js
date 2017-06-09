@@ -1,25 +1,38 @@
 const baseUrl = 'http://devnewsapi.azurewebsites.net/api/article/';
 
 function makeCall(url, methodType, callback, data){
-	var xmlhttp = new XMLHttpRequest();	
+	headers = new Headers();
+	headers.append('Content-Type', 'application/json');
+	headers.append('Accept', 'application/json');
+	headers.append('Access-Control-Request-Method', 'POST, DELETE');
+	headers.append('Access-Control-Allow-Origin', '*');
 	
-	xmlhttp.onreadystatechange = function() {
-		if (this.readyState == 4) {
-			if (this.status == 200){
-				var result = JSON.parse(this.responseText);
-				callback(result);
+	var init = { 
+		method: methodType,
+		headers: headers,
+		cache: 'no-store',
+		body: JSON.stringify(data)
+	};
+
+	var request = new Request(url, init);
+	fetch(request).then(function(response) {
+		if (response.ok){
+
+			if (response.status == 200) {			
+				return response.json();					
 			}
-			if (this.status == 204)
-			{
+			if(response.status == 204){
+				return;
+			}
+		}
+	}).then(function (data) {
+		if (callback) {
+			if (data){ callback(data);}
+			else{
 				callback();
 			}
 		}
-	};
-	xmlhttp.open(methodType, url, true);
-	xmlhttp.setRequestHeader('Content-Type', 'application/json');
-	xmlhttp.setRequestHeader('Accept', 'application/json');
-	
-	xmlhttp.send(JSON.stringify(data));
+	});	
 }
 
 function reloadArticles() {	
@@ -73,7 +86,7 @@ function createArticleElement(article) {
 		return articleDiv;
 }
 
-function postArticle() {
+function postArticle(e) {
 	var authorNameItem = document.getElementById('newArticleAuthor');
 	var authorName = authorNameItem.value;
 	
@@ -86,6 +99,7 @@ function postArticle() {
 	};
 	
 	makeCall(baseUrl, 'POST', reloadArticles, newArticle);
+	return false;
 }
 
 function getArticleContainer(elementItem){
